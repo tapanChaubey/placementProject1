@@ -3,7 +3,7 @@
     <div class="col-8 offset-3">
         <h3><%=allListings.title%></h3>
     </div>
-      <div class="card col-6 offset-3 show-card">
+      <div class="card col-6 offset-3 show-card listing-card">
       <img src="<%=allListings.image%>" class="card-img-top show-img"  alt="listing_image">
       <div class="card-body">
       <p class="card-text">
@@ -24,16 +24,33 @@
 <div class="col-8 offset-3 mb-3">
   <hr>
   <h3>Leave a reviews</h3>
-  <form>
+  <form action="/listing/<%=allListings._id%>/reviews" method="post" novalidate class="needs-validation">
     <div class="mb-3 mt-3">
       <label for="rating" class="form-lable">Rating:</label>
       <input type="range" min="1" max="5" id="rating" name="review[rating]" class="form-range"/>
     </div>
     <div class="mb-3 mt-3">
       <label for="comment" class="form-lable">Comments:</label>
-      <textarea cols="20" rows="5" id="comment" name="review[comment]" class="form-control"></textarea>
+      <textarea cols="20" rows="5" id="comment" name="review[comment]" class="form-control" required></textarea>
+      <div class="invalid-feedback"><i>Please Enter Comment</i> </div>
     </div>
-    <button class="btn btn-outline-dark">Submit</button>
+    <button class="btn btn-info">Submit</button>
   </form>
+  <hr>
+  <p><b>All reviews</b></p>
+  <div class="row">
+  <%for(let j of allListings.reviews){%>
+   <div class="card col-5 ms-3 mb-3">
+    <div class="body">
+      <h5 class="card-title">Tapan kumar</h5>
+      <p class="card-text"><%=j.comment%></p>
+      <p class="card-text"><%=j.rating%> Stars</p>
+    </div>
+    <form class="mb-3" method="POST" action="/listing/<%=allListings._id%>/reviews/<%=j._id%>?_method=DELETE">
+      <button class="btn btn-sm btn-danger">Delete-review</button>
+    </form>
+   </div>
+    <%}%>
+  </div>
 </div>
 </div>
