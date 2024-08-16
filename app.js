@@ -25,13 +25,11 @@ app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.engine("ejs", ejsMate);
 app.use(methodOverride("_method"));
-
-
 // listing rout 
 app.use("/listing",listing);
 
 //add reviews rout
-app.use("/",reviews1);
+app.use("/listing/:id/reviews",reviews1);
 
 app.all("*",(req,res,next)=>{
     next(new ExpressError(404,"Page Not Found !"));

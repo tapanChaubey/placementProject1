@@ -1,5 +1,5 @@
 const express=require("express");
-const router=express.Router();
+const router=express.Router({mergeParams:true});
 const wrapAsync=require("../utills/wrapAsync.js");
 const ExpressError=require("../utills/ExpressError.js");
 const {reviewSchema}=require("../schema.js");
@@ -18,7 +18,8 @@ const validateReview=(req,res,next)=>{
 }
 
 //
-router.post("/listing/:id/reviews",validateReview,wrapAsync(async (req,res)=>{
+router.post("/",validateReview,wrapAsync(async (req,res)=>{
+    console.log(req.params.id);
     let listing=await MainListingdata.findById(req.params.id);
     let newReview=new Review(req.body.review);
      listing.reviews.push(newReview);
@@ -28,7 +29,7 @@ router.post("/listing/:id/reviews",validateReview,wrapAsync(async (req,res)=>{
 
 }))
 // delete reviews rout
-router.delete("/listing/:id/reviews/:reviewId",wrapAsync(async(req,res)=>{
+router.delete("/:reviewId",wrapAsync(async(req,res)=>{
 let {id,reviewId}=req.params;
 await MainListingdata.findByIdAndUpdate(id,{$pull:{reviews:reviewId}});
 await Review.findByIdAndDelete(reviewId);

@@ -2,7 +2,7 @@ const express=require("express");
 const router=express.Router();
 const wrapAsync=require("../utills/wrapAsync.js");
 const ExpressError=require("../utills/ExpressError.js");
-const {listinSchema,reviewSchema}=require("../schema.js");
+const {listinSchema}=require("../schema.js");
 const MainListingdata=require("../models/listing.js");
 // main schema error handler middleware 
 
