@@ -28,6 +28,7 @@ router.post("/add",validateListing,wrapAsync(async (req,res,next)=>{
     let listing=req.body.listing;
     const newList=new MainListingdata(listing);
     await newList.save();
+    req.flash("success","New Listing Created");
     res.redirect("/listing");
 }));
 
@@ -35,23 +36,33 @@ router.post("/add",validateListing,wrapAsync(async (req,res,next)=>{
 router.get("/:id",wrapAsync(async(req,res)=>{
     const {id}=req.params;
   let allListings=await MainListingdata.findById(id).populate("reviews");
+  if(!allListings){
+    req.flash("error","Listing you requested does not exist !");
+    res.redirect("/listing");
+  }
   res.render("./Listing/show.ejs",{allListings}); 
 }));
 // upadate list
 router.get("/:id/edit",wrapAsync(async(req,res)=>{
     const {id}=req.params;
   let allListings=await MainListingdata.findById(id);
+  if(!allListings){
+    req.flash("error","Listing you requested does not exist !");
+    res.redirect("/listing");
+  }
   res.render("./Listing/edit.ejs",{allListings}); 
 }));
 router.put("/:id",validateListing,wrapAsync(async(req,res)=>{
     let {id}=req.params;
     await MainListingdata.findByIdAndUpdate(id,{...req.body.listing});
+    req.flash("success","New Listing Updated !");
     res.redirect("/listing");
 }));
 // delete rout
 router.delete("/:id",wrapAsync(async(req,res)=>{
     let {id}=req.params;
     await MainListingdata.findByIdAndDelete(id);
+    req.flash("success","Listing Deleted !");
     res.redirect("/listing")
 }));
 module.exports=router;

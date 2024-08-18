@@ -5,11 +5,23 @@ const path=require("path");
 const fs=require("fs");
 const ejsMate=require("ejs-mate");
 const methodOverride=require("method-override");
+const session=require("express-session");
+const flash=require("connect-flash");
 const app=express();
 const ExpressError=require("./utills/ExpressError.js");
 const Mongo_url='mongodb://127.0.0.1:27017/PlecementProject1';
 const listing=require("./routes/listing.js");
 const reviews1=require("./routes/reviews.js");
+const sessionOption={
+    secret:"mysupersecret",
+    resave:false,
+    saveUninitialized:true,
+    cookie:{
+        expires: Date.now()+7*24*60*60*1000,
+        maxAge:7*24*60*60*1000,
+        httpOnly:true
+    }
+}
 main().then(()=>{
     console.log("connection successfull !");
 
@@ -19,17 +31,25 @@ main().then(()=>{
 async function main(){
     mongoose.connect(Mongo_url);
 }
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname,"/public")));
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.engine("ejs", ejsMate);
 app.use(methodOverride("_method"));
+app.use(session(sessionOption));
+app.use(flash());
+app.use((req,res,next)=>{
+    res.locals.success=req.flash("success");
+    res.locals.error=req.flash("error");
+    next();
+})
 // listing rout 
 app.use("/listing",listing);
-
 //add reviews rout
 app.use("/listing/:id/reviews",reviews1);
+
 
 app.all("*",(req,res,next)=>{
     next(new ExpressError(404,"Page Not Found !"));
