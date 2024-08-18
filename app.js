@@ -10,8 +10,12 @@ const flash=require("connect-flash");
 const app=express();
 const ExpressError=require("./utills/ExpressError.js");
 const Mongo_url='mongodb://127.0.0.1:27017/PlecementProject1';
-const listing=require("./routes/listing.js");
-const reviews1=require("./routes/reviews.js");
+const listingRouter=require("./routes/listing.js");
+const reviewsRouter=require("./routes/reviews.js");
+const userRouter=require("./routes/user.js");
+const passport=require("passport");
+const localStrategy=require("passport-local");
+const User=require("./models/user.js");
 const sessionOption={
     secret:"mysupersecret",
     resave:false,
@@ -40,15 +44,29 @@ app.engine("ejs", ejsMate);
 app.use(methodOverride("_method"));
 app.use(session(sessionOption));
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 app.use((req,res,next)=>{
     res.locals.success=req.flash("success");
     res.locals.error=req.flash("error");
     next();
 })
 // listing rout 
-app.use("/listing",listing);
+app.use("/listing",listingRouter);
 //add reviews rout
-app.use("/listing/:id/reviews",reviews1);
+app.use("/listing/:id/reviews",reviewsRouter);
+app.use("/",userRouter);
+app.get("/demo", async(req,res)=>{
+    let fakeuser=new User({
+        email:"tapankumar@989gmial.com",
+        username:"Tapan kumar"
+    })
+    let result=await User.register(fakeuser,"helloworld");
+    res.send(result);
+})
 
 
 app.all("*",(req,res,next)=>{
