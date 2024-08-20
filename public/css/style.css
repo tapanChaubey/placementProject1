@@ -102,3 +102,56 @@ color: #222222;
     padding-left: 0;
     padding-right: 0;
 }
+/* show page css*/
+.show-card {
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden; /* Ensures rounded corners are respected */
+}
+
+.show-img {
+    border-radius: 15px 15px 0 0;
+    object-fit: cover; /* Ensures image fits well within the card */
+}
+
+.btns {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.delete-btn, .add-btn {
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-weight: 600;
+}
+
+.form-lable {
+    font-weight: 500;
+}
+
+.card {
+    border-radius: 15px;
+}
+
+.card-title {
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .btns {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btns .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .form-range {
+        width: 100%;
+    }
+}
+/* add new listing css*/

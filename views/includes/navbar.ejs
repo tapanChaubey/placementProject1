@@ -1,15 +1,64 @@
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/listing"><i class="fa-regular fa-compass"></i></a>
+<nav class="navbar navbar-expand-md navbar-light bg-light border-bottom sticky-top">
+  <div class="container-fluid">
+      <a class="navbar-brand" href="/listing">
+          <i class="fa-regular fa-compass"></i>
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link"href="/listing">Home</a>
-          <a class="nav-link" href="/listing">All Listing</a>
-          <a class="nav-link" href="/listing/new">Add new Listing</a>
-        </div>
+          <div class="navbar-nav">
+              <a class="nav-link" href="/listing">Home</a>
+              <a class="nav-link" href="/listing">All Listings</a>
+              <a class="nav-link" href="/listing/new">Add New Listing</a>
+          </div>
+          <div class="navbar-nav ms-auto">
+              <% if (!CurrUser) { %>
+                  <a class="nav-link" href="/signup"><b>Sign Up</b></a>
+                  <a class="nav-link" href="/login"><b>Login</b></a>
+              <% } %>
+              <% if (CurrUser) { %>
+                  <a class="nav-link" href="/logout"><b>Log Out</b></a>
+              <% } %>
+          </div>
       </div>
-    </div>
-  </nav> 
+  </div>
+</nav>
+
+<style>
+  /* Ensure the navbar spans the full width */
+  .navbar {
+      width: 100%;
+  }
+  
+  /* Default background color */
+  .navbar-light {
+      background-color: #ffffff;
+  }
+
+  /* Background color for toggled state */
+  .navbar-collapse.show {
+      background-color: #ffffff;
+  }
+
+  /* Add some margin to the bottom of the navbar */
+  .navbar {
+      margin-bottom: 20px;
+  }
+
+  /* Adjust the navbar links for better visibility */
+  .nav-link {
+      font-weight: bold;
+      color: black;
+  }
+  .nav-link:hover {
+      color: #007bff;
+  }
+
+  /* Make sure the navbar is responsive */
+  @media (max-width: 767px) {
+      .navbar-collapse {
+          transition: background-color 0.3s ease;
+      }
+  }
+</style>

@@ -52,6 +52,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req,res,next)=>{
     res.locals.success=req.flash("success");
     res.locals.error=req.flash("error");
+    res.locals.CurrUser=req.user;
     next();
 })
 // listing rout 
@@ -59,14 +60,7 @@ app.use("/listing",listingRouter);
 //add reviews rout
 app.use("/listing/:id/reviews",reviewsRouter);
 app.use("/",userRouter);
-app.get("/demo", async(req,res)=>{
-    let fakeuser=new User({
-        email:"tapankumar@989gmial.com",
-        username:"Tapan kumar"
-    })
-    let result=await User.register(fakeuser,"helloworld");
-    res.send(result);
-})
+
 
 
 app.all("*",(req,res,next)=>{

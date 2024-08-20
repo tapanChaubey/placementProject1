@@ -2,21 +2,10 @@ const express=require("express");
 const router=express.Router({mergeParams:true});
 const wrapAsync=require("../utills/wrapAsync.js");
 const ExpressError=require("../utills/ExpressError.js");
-const {reviewSchema}=require("../schema.js");
+const {validateReview}=require("../middleware.js");
 const MainListingdata=require("../models/listing.js");
 const Review=require("../models/review.js");
-
 // error handler
-const validateReview=(req,res,next)=>{
-    let {error}=reviewSchema.validate(req.body);
-    if(error){
-        throw new ExpressError(400,error);
-    }
-    else{
-        next();
-    }
-}
-
 //
 router.post("/",validateReview,wrapAsync(async (req,res)=>{
     console.log(req.params.id);
