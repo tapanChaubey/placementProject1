@@ -24,7 +24,7 @@ router.post("/add",toLogedIn,validateListing,wrapAsync(async (req,res,next)=>{
 //show rout
 router.get("/:id",wrapAsync(async(req,res)=>{
     const {id}=req.params;
-  let allListings=await MainListingdata.findById(id).populate("reviews").populate("owner");
+  let allListings=await MainListingdata.findById(id).populate({path:"reviews",populate:{path:"author"},}).populate("owner");
   if(!allListings){
     req.flash("error","Listing you requested does not exist !");
     res.redirect("/listing");

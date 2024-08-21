@@ -18,14 +18,15 @@
         </div>
     </div>
     
-
+<%if(CurrUser && allListings.owner._id.equals(CurrUser._id)){%>
     <div class="btns">
         <a href="/listing/<%= allListings._id %>/edit" class="btn btn-dark add-btn">Edit</a>
         <form action="/listing/<%= allListings._id %>?_method=Delete" method="post">
             <button class="btn btn-dark delete-btn">Delete</button>
         </form>
     </div>
-    
+    <%}%>
+    <%if(CurrUser){%>
     <div class="col-12 col-md-8 offset-md-2 mb-3">
         <hr>
         <h3>Leave a Review</h3>
@@ -41,13 +42,14 @@
             </div>
             <button class="btn btn-info">Submit</button>
         </form>
+        <%}%>
         <hr>
         <p><b>All Reviews</b></p>
         <div class="row">
             <% for (let j of allListings.reviews) { %>
                 <div class="card col-12 col-md-5 mb-3 mx-auto">
                     <div class="card-body">
-                        <h5 class="card-title">Tapan Kumar</h5>
+                        <h5 class="card-title">@<%=j.author.username%></h5>
                         <p class="card-text"><%= j.comment %></p>
                         <p class="card-text"><%= j.rating %> Stars</p>
                     </div>
