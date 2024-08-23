@@ -9,9 +9,8 @@ const Schema=new mongoose.Schema({
         type:String,
     },
     image:{
-        type:String,
-       // default:"https://www.istockphoto.com/photo/young-woman-riding-bicycle-on-wooden-pier-in-the-maldives-gm1298306226-391188431?utm_campaign=srp_photos_top&utm_content=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fhotel-image&utm_medium=affiliate&utm_source=unsplash&utm_term=hotel+image%3A%3A%3A",
-        set:(v)=>v==" " ? "https://www.istockphoto.com/photo/young-woman-riding-bicycle-on-wooden-pier-in-the-maldives-gm1298306226-391188431?utm_campaign=srp_photos_top&utm_content=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fhotel-image&utm_medium=affiliate&utm_source=unsplash&utm_term=hotel+image%3A%3A%3A":v,
+       url:String,
+       filename:String,
     },
     price:{
         type:Number,

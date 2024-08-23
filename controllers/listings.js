@@ -9,9 +9,13 @@ module.exports.randerNewForm=(req,res)=>{
 }
 
 module.exports.createListing=async (req,res,next)=>{ 
-    let listing=req.body.listing;
+  let url=req.file.path;
+  let filename=req.file.filename;
+  //console.log(req.file);
+  let listing=req.body.listing;
     const newList=new MainListingdata(listing);
     newList.owner=req.user._id;
+    newList.image={url,filename};
     await newList.save();
     req.flash("success","New Listing Created");
     res.redirect("/listing");
@@ -24,7 +28,7 @@ module.exports.showListing=async(req,res)=>{
     req.flash("error","Listing you requested does not exist !");
     res.redirect("/listing");
   }
-  console.log(allListings);
+  //console.log(allListings);
   res.render("./Listing/show.ejs",{allListings}); 
 }
 
@@ -35,11 +39,19 @@ module.exports.EditForm=async(req,res)=>{
     req.flash("error","Listing you requested does not exist !");
     res.redirect("/listing");
   }
-  res.render("./Listing/edit.ejs",{allListings}); 
+  let originalImage=allListings.image.url;
+ originalImage=originalImage.replace("/upload","/upload/w_250");
+  res.render("./Listing/edit.ejs",{allListings,originalImage}); 
 }
 module.exports.putEditForm=async(req,res)=>{
     let {id}=req.params;
-    await MainListingdata.findByIdAndUpdate(id,{...req.body.listing});
+   let listing1= await MainListingdata.findByIdAndUpdate(id,{...req.body.listing});
+   if(typeof req.file !=="undefined"){
+    let url=req.file.path;
+   let filename=req.file.filename;
+   listing1.image={url,filename};
+    await listing1.save();
+   }
     req.flash("success","New Listing Updated !");
     res.redirect("/listing");
 }
