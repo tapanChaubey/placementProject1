@@ -21,6 +21,7 @@ const userRouter=require("./routes/user.js");
 const passport=require("passport");
 const localStrategy=require("passport-local");
 const User=require("./models/user.js");
+
 const sessionOption={
     secret:"mysupersecret",
     resave:false,

@@ -154,4 +154,8 @@ color: #222222;
         width: 100%;
     }
 }
-/* add new listing css*/
+/* styling for maps*/
+#map { 
+    height: 400px;
+    width: 80vh;
+ }
