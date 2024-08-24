@@ -11,19 +11,32 @@ const fs=require("fs");
 const ejsMate=require("ejs-mate");
 const methodOverride=require("method-override");
 const session=require("express-session");
+const MongStore=require("connect-mongo");
 const flash=require("connect-flash");
 const app=express();
 const ExpressError=require("./utills/ExpressError.js");
-const Mongo_url='mongodb://127.0.0.1:27017/PlecementProject1';
 const listingRouter=require("./routes/listing.js");
 const reviewsRouter=require("./routes/reviews.js");
 const userRouter=require("./routes/user.js");
 const passport=require("passport");
 const localStrategy=require("passport-local");
 const User=require("./models/user.js");
+const Mongo_url=process.env.ATLUSDB;
+
+const store=MongStore.create({
+    mongoUrl:Mongo_url,
+    crypto: {
+    secret:process.env.Screate 
+  },
+  touchAfter:24*3600
+})
+store.on("error",()=>{
+    console.log("error in Mongo session store",err);
+})
 
 const sessionOption={
-    secret:"mysupersecret",
+    store,
+    secret:process.env.Screate ,
     resave:false,
     saveUninitialized:true,
     cookie:{
@@ -32,6 +45,7 @@ const sessionOption={
         httpOnly:true
     }
 }
+
 main().then(()=>{
     console.log("connection successfull !");
 

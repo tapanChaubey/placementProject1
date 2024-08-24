@@ -87,4 +87,140 @@
         </div>
     </div>
 </div>
+<style>
+    .container {
+    margin-top: 2rem;
+  }
+
+  /* Header Styling */
+  .text-center h3 {
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    color: #343a40;
+  }
+
+  /* Card Styling */
+  .show-card {
+    border: none;
+    border-radius: 0.75rem;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background-color: #fff;
+    margin-bottom: 2rem;
+  }
+
+  .show-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .card-body {
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+  }
+
+  .card-text {
+    font-size: 1rem;
+    color: #495057;
+  }
+
+  /* Button Styling */
+  .btns {
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .add-btn, .delete-btn {
+    margin: 0.5rem;
+  }
+
+  .btn-dark {
+    background-color: #343a40;
+    border-color: #343a40;
+  }
+
+  .btn-dark:hover {
+    background-color: #23272b;
+    border-color: #1d2124;
+  }
+
+  .btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+  }
+
+  .btn-info:hover {
+    background-color: #138496;
+    border-color: #117a8b;
+  }
+
+  /* Review Form Styling */
+  .needs-validation .form-control:invalid {
+    border-color: #dc3545;
+  }
+
+  .invalid-feedback {
+    font-size: 0.875rem;
+  }
+
+  /* Map Container Styling */
+  #map {
+    height: 400px;
+    width: 100%;
+    border-radius: 0.75rem;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Responsive Adjustments */
+  @media (min-width: 768px) {
+    .col-md-8.offset-md-2 {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .card.col-md-5 {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .col-md-8.offset-md-2 {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .btns {
+      margin: 1.5rem 0;
+    }
+
+    #map {
+      height: 300px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .text-center h3 {
+      font-size: 1.5rem;
+    }
+
+    .card-body {
+      padding: 1rem;
+    }
+
+    .btns .btn {
+      margin: 0.5rem 0;
+      display: block;
+      width: 100%;
+    }
+
+    .card-text {
+      font-size: 0.875rem;
+    }
+
+    #map {
+      height: 250px;
+    }
+  }
+</style>
 <script src="/js/map.js"></script>
